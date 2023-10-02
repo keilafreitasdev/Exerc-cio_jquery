@@ -8,28 +8,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const taskText = taskInput.value.trim();
 
-        if (taskText === "") {
-            return;
-        }
-
         const listItem = document.createElement("li");
-        listItem.innerHTML = `
-            <span>${taskText}</span>
-            <button class="delete-button">Excluir</button>
-        `;
+        const span = document.createElement("span");
+        span.textContent = taskText;
+        listItem.appendChild(span);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Excluir";
+        deleteButton.classList.add("delete-button");
+        listItem.appendChild(deleteButton);
 
         taskList.appendChild(listItem);
 
         taskInput.value = "";
 
-        
-        const deleteButton = listItem.querySelector(".delete-button");
         deleteButton.addEventListener("click", function () {
             taskList.removeChild(listItem);
         });
 
-        listItem.addEventListener("click", function() {
-            listItem.classList.toggle("completed-task");
-        })
+        span.addEventListener("click", function() {
+            span.classList.toggle("completed-task");
+        });
     });
 });
