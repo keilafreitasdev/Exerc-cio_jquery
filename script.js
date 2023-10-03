@@ -1,33 +1,31 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const todoForm = document.getElementById("todo-form");
-    const taskInput = document.getElementById("task-input");
-    const taskList = document.getElementById("task-list");
+$(document).ready(function() {
+    const todoForm = $("#todo-form");
+    const taskInput = $("#task-input");
+    const taskList = $("#task-list");
 
-    todoForm.addEventListener("submit", function (e) {
+    todoForm.on("submit", function(e) {
         e.preventDefault();
 
-        const taskText = taskInput.value.trim();
+        const taskText = taskInput.val().trim();
 
-        const listItem = document.createElement("li");
-        const span = document.createElement("span");
-        span.textContent = taskText;
-        listItem.appendChild(span);
+        const listItem = $("<li></li>");
+        const span = $("<span></span>").text(taskText);
+        listItem.append(span);
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Excluir";
-        deleteButton.classList.add("delete-button");
-        listItem.appendChild(deleteButton);
+        const deleteButton = $("<button></button>").text("Excluir");
+        deleteButton.addClass("delete-button");
+        listItem.append(deleteButton);
 
-        taskList.appendChild(listItem);
+        taskList.append(listItem);
 
-        taskInput.value = "";
+        taskInput.val("");
 
-        deleteButton.addEventListener("click", function () {
-            taskList.removeChild(listItem);
+        deleteButton.on("click", function() {
+            listItem.remove();
         });
 
-        span.addEventListener("click", function() {
-            span.classList.toggle("completed-task");
+        span.on("click", function() {
+            span.toggleClass("completed-task");
         });
     });
 });
